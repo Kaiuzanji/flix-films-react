@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getMovie } from '../../services/movie'
 import { CircleNotch, Heart, HeartBreak, FilmStrip } from 'phosphor-react'
@@ -11,14 +11,17 @@ const Filme = () => {
     const [isSavedMovie, setIsSavedMovie] = useState(false)
     const navegate = useNavigate()
 
-    const favoritedMovies = () => {
-        const savedMovies = JSON.parse(localStorage.getItem("@flixFilms") || [])
-        const hasMovie = savedMovies.some( savedMovie => savedMovie.id === movie.id )
-        return {
-            savedMovies: savedMovies,
-            isFavorited: hasMovie
+    const favoritedMovies = useCallback(() => {
+        const favoritedMovies = () => {
+            const savedMovies = JSON.parse(localStorage.getItem("@flixFilms") || [])
+            const hasMovie = savedMovies.some( savedMovie => savedMovie.id === movie.id )
+            return {
+                savedMovies: savedMovies,
+                isFavorited: hasMovie
+            }
         }
-    }
+        return favoritedMovies()
+    }, [movie])
 
     useEffect(() => {
         const getApiMovie = async () => {
