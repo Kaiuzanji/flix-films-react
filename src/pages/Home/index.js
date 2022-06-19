@@ -1,5 +1,6 @@
-import { CircleNotch } from 'phosphor-react'
+import { CircleNotch, Eye } from 'phosphor-react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getMoviesNowPlaying } from '../../services/movie'
 
 const Home = () => {
@@ -10,9 +11,7 @@ const Home = () => {
         const loadMovies = async () => {
             const movies = await getMoviesNowPlaying()
             setMovies(movies)
-            setTimeout(() => {
-                setLoading((movies.length === 0))
-            }, 5000)
+            setLoading((movies.length === 0))
         }
         loadMovies()
     }, [])
@@ -33,18 +32,18 @@ const Home = () => {
                         </span>
                     </div>
                     : 
-                    <section className='grid grid-cols-4 gap-6 w-[80%]'>
+                    <section className='grid grid-cols-4 gap-2 w-10/12'>
                         {
                             movies.map( movie => {
                                 return (
-                                    <article className='bg-transparent overflow-hidden' key={movie.id}>
-                                        <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} className="rounded-lg h-[80%]" alt={movie.title}></img>
+                                    <article className='relative bg-transparent overflow-hidden group' key={movie.id}>
+                                        <Link to={`/movie/${movie.id}`}>
+                                            <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} className="rounded-lg h-[70%] hover:opacity-80" alt={movie.title} />
+                                            <span className='absolute top-40 left-16 text-2xl opacity-0 transition-opacity group-hover:opacity-100 flex flex-col items-center'>Ver mais <Eye size={40}/></span>
+                                        </Link>
                                         <div className='flex flex-col'>
-                                            <strong className='text-lg whitespace-nowrap mt-2'>{movie.title}</strong>
-                                            <strong className='text-lg whitespace-nowrap mt-2'>Avaliação: {movie.vote_average}</strong>
-                                        </div>
-                                        <div>
-                                            <button className='w-11/12 p-2 bg-cyan-700 mt-2 rounded-md hover:bg-cyan-600'>Acessar</button>
+                                            <strong className='text-lg whitespace-nowrap mt-2' title={movie.title}>{movie.title}</strong>
+                                            <strong className='text-lg whitespace-nowrap'>Avaliação: {movie.vote_average}</strong>
                                         </div>
                                     </article>
                                 )
