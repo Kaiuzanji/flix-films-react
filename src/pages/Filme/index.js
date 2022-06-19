@@ -43,7 +43,7 @@ const Filme = () => {
                             <strong className='text-lg whitespace-nowrap'>Avaliação: {movie.vote_average}</strong>
                             <div className='flex gap-4 mt-2'>
                                 <button className='p-2 bg-slate-700 text-lg text-slate-300 rounded-md flex gap-2 items-center'>Salvar <Heart size={20} className="text-red-500" weight='fill'/></button>
-                                <a href={`https://www.youtube.com/results?search_query=Trailer ${movie.title}`}>
+                                <a target="blank" rel="external" href={`https://www.youtube.com/results?search_query=Trailer ${movie.title}`}>
                                     <button className='p-2 bg-slate-700 text-lg text-slate-300 rounded-md flex gap-2 items-center'>Trailer <FilmStrip size={20} className="text-slate-300" weight='fill'/></button>
                                 </a>
                             </div>

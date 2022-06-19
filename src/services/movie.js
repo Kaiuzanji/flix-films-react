@@ -4,7 +4,7 @@ const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3/'
 })
 
-const apiKey = '' // set you api key here
+const apiKey = 'd808d997e7ad3405e60c8bd4cbb74edb' // set you api key here
 
 export const getMoviesNowPlaying = async () => {
     return await api
